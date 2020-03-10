@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import './mixins/validation.dart';
 
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with Validation{
   double nilai1,nilai2,hasil;
-  String jumlah = '';
+  String jumlah = 'Hasil = 0';
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,14 @@ class _HomeState extends State<Home> {
                 ],
               ),
               Padding(padding: EdgeInsets.only(top: 10)),
-              Text(jumlah, style: TextStyle(fontSize: 30.0,fontWeight: FontWeight.bold),)
+              Card(
+                elevation: 10.0,
+                color: Colors.blue,
+                child: Container(
+                  margin: EdgeInsets.all(10.0),
+                  child: Text(jumlah, style: TextStyle(fontSize: 30.0, color: Colors.white, fontWeight: FontWeight.bold),),
+                )
+              )
             ],
           ),
         ),
@@ -54,12 +62,7 @@ class _HomeState extends State<Home> {
       decoration: InputDecoration(
         labelText: 'Nilai 1'
       ),
-      validator: (value) {
-        if (value.isEmpty) {
-          return 'Harap isi nilai 1';
-        }
-        return null;
-      },
+      validator: validateNilai1,
       onSaved: (value){
         nilai1 = double.parse(value);
       },
@@ -73,12 +76,7 @@ class _HomeState extends State<Home> {
       decoration: InputDecoration(
         labelText: 'Nilai 2'
       ),
-      validator: (value) {
-        if (value.isEmpty) {
-          return 'Harap isi nilai 2';
-        }
-        return null;
-      },
+      validator: validateNilai2,
       onSaved: (value){
         nilai2 = double.parse(value);
       },
@@ -87,7 +85,9 @@ class _HomeState extends State<Home> {
 
   Widget btnTambah() {
     return RaisedButton(
-      child: Text('+',style: TextStyle(fontSize: 30.0),),
+      color: Colors.blue,
+      elevation: 10.0,
+      child: Text('+',style: TextStyle(fontSize: 30.0, color: Colors.white),),
       onPressed: () {
         if (formKey.currentState.validate()) {
           formKey.currentState.save();
@@ -102,7 +102,9 @@ class _HomeState extends State<Home> {
 
   Widget btnKurang() {
     return RaisedButton(
-      child: Text('-',style: TextStyle(fontSize: 30.0),),
+      color: Colors.blue,
+      elevation: 10.0,
+      child: Text('-',style: TextStyle(fontSize: 30.0, color: Colors.white),),
       onPressed: () {
         if (formKey.currentState.validate()) {
           formKey.currentState.save();
@@ -117,7 +119,9 @@ class _HomeState extends State<Home> {
 
   Widget btnKali() {
     return RaisedButton(
-      child: Text('x',style: TextStyle(fontSize: 30.0),),
+      color: Colors.blue,
+      elevation: 10.0,
+      child: Text('x',style: TextStyle(fontSize: 30.0, color: Colors.white),),
       onPressed: () {
         if (formKey.currentState.validate()) {
           formKey.currentState.save();
@@ -132,7 +136,9 @@ class _HomeState extends State<Home> {
 
   Widget btnBagi() {
     return RaisedButton(
-      child: Text('/',style: TextStyle(fontSize: 30.0),),
+      color: Colors.blue,
+      elevation: 10.0,
+      child: Text('/',style: TextStyle(fontSize: 30.0, color: Colors.white),),
       onPressed: () {
         if (formKey.currentState.validate()) {
           formKey.currentState.save();
